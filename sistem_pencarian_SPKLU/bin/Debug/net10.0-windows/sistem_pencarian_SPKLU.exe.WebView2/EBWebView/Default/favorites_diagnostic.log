@@ -1,0 +1,9 @@
+2026-10-19 01:19:05.567: [INFO] CurrentProfilePath: \\wsl.localhost\Ubuntu\home\freddskii\sem5\PBKK\Week8\sistem_pencarian_SPKLU\bin\Debug\net10.0-windows\sistem_pencarian_SPKLU.exe.WebView2\EBWebView\Default
+2026-10-19 01:19:05.567: [INFO] Profiles total count: 1
+2026-10-19 01:19:05.567: [INFO] Profile: name=Profile 1 path=\\wsl.localhost\Ubuntu\home\freddskii\sem5\PBKK\Week8\sistem_pencarian_SPKLU\bin\Debug\net10.0-windows\sistem_pencarian_SPKLU.exe.WebView2\EBWebView\Default lastActive=null
+2026-10-19 01:19:05.567: [INFO] LastUsedProfileDir: \\wsl.localhost\Ubuntu\home\freddskii\sem5\PBKK\Week8\sistem_pencarian_SPKLU\bin\Debug\net10.0-windows\sistem_pencarian_SPKLU.exe.WebView2\EBWebView\Default
+2026-10-19 01:19:05.567: [INFO] OnDoneLoading sync enabled: 0
+2026-10-19 01:19:05.567: [INFO] BookmarkModelLoaded, ids_reassigned: 0
+2026-10-19 01:19:05.567: [INFO] BookmarksLoadDropped droppedNodes=0
+2026-10-19 01:19:05.567: [INFO] BookmarksSnapshot Startup total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
+2026-10-19 01:21:24.244: [INFO] BookmarksSnapshot Shutdown total=0 bar=0 other=0 mobile=0 showBar=0 showBarNTP=1
