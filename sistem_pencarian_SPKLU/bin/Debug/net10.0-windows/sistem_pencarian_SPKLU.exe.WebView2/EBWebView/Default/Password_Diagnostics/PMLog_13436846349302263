@@ -5,3 +5,31 @@ statement: NULL
 Has valid header: No
 Has valid schema: No
 
+13436846758962001
+db error: 5/database is locked
+LastError: 1
+statement: NULL
+Has valid header: No
+Has valid schema: No
+
+13436847568150595
+db error: 5/database is locked
+LastError: 1
+statement: NULL
+Has valid header: No
+Has valid schema: No
+
+13436847568160399
+db error: 5/database is locked
+LastError: 1
+statement: NULL
+Has valid header: No
+Has valid schema: No
+
+13436849180755599
+db error: 5/database is locked
+LastError: 1
+statement: NULL
+Has valid header: No
+Has valid schema: No
+

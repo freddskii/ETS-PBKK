@@ -20,6 +20,7 @@ public partial class MainWindow : Window
     private List<SpkluLocation> _filteredLocations = new();
     private SpkluLocation? _selectedLocation;
     private bool _isWebViewInitialized = false;
+    private bool _isMapReady = false;
 
     public MainWindow()
     {
@@ -57,15 +58,25 @@ public partial class MainWindow : Window
             bdrMapFallback.Visibility = Visibility.Visible;
             txtMapFallback.Text = "Menginisialisasi kontrol peta WebView2...";
 
+            MapWebView.NavigationCompleted += (s, e) =>
+            {
+                _isMapReady = true;
+                bdrMapFallback.Visibility = Visibility.Collapsed;
+            };
+
             await MapWebView.EnsureCoreWebView2Async();
             MapWebView.CoreWebView2.Settings.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 SPKLUFinder/1.0";
             _isWebViewInitialized = true;
-            bdrMapFallback.Visibility = Visibility.Collapsed;
 
-            // Render peta untuk lokasi terpilih saat ini jika ada
-            if (_selectedLocation != null)
+            // Render peta awal
+            var initialLoc = _selectedLocation ?? (_allLocations.Count > 0 ? _allLocations[0] : null);
+            if (initialLoc != null)
             {
-                UpdateMapView(_selectedLocation);
+                MapWebView.NavigateToString(GenerateLeafletHtml(initialLoc));
+            }
+            else
+            {
+                bdrMapFallback.Visibility = Visibility.Collapsed;
             }
         }
         catch (Exception ex)
@@ -242,15 +253,29 @@ public partial class MainWindow : Window
 
     private void UpdateMapView(SpkluLocation location)
     {
-        if (!_isWebViewInitialized)
+        if (!_isWebViewInitialized || MapWebView == null)
         {
             return;
         }
 
         try
         {
-            var html = GenerateLeafletHtml(location);
-            MapWebView.NavigateToString(html);
+            if (_isMapReady)
+            {
+                var lat = location.Latitude.ToString(CultureInfo.InvariantCulture);
+                var lng = location.Longitude.ToString(CultureInfo.InvariantCulture);
+                var name = EscapeJs(location.NamaStasiun);
+                var addr = EscapeJs(location.Alamat);
+                var tipe = EscapeJs(location.TipeCharger);
+                var status = EscapeJs(location.Status);
+
+                _ = MapWebView.ExecuteScriptAsync($"updateLocation({lat}, {lng}, '{name}', '{addr}', '{tipe}', '{status}');");
+            }
+            else
+            {
+                var html = GenerateLeafletHtml(location);
+                MapWebView.NavigateToString(html);
+            }
         }
         catch (Exception ex)
         {
@@ -258,22 +283,24 @@ public partial class MainWindow : Window
         }
     }
 
+    private static string EscapeJs(string value)
+    {
+        if (string.IsNullOrEmpty(value)) return string.Empty;
+        return value.Replace("\\", "\\\\")
+                    .Replace("'", "\\'")
+                    .Replace("\"", "\\\"")
+                    .Replace("\r", "")
+                    .Replace("\n", " ");
+    }
+
     private string GenerateLeafletHtml(SpkluLocation loc)
     {
         var latStr = loc.Latitude.ToString(CultureInfo.InvariantCulture);
         var lngStr = loc.Longitude.ToString(CultureInfo.InvariantCulture);
-        var safeName = loc.NamaStasiun.Replace("'", "\\'").Replace("\"", "\\\"");
-        var safeAlamat = loc.Alamat.Replace("'", "\\'").Replace("\"", "\\\"");
-        var safeTipe = loc.TipeCharger.Replace("'", "\\'").Replace("\"", "\\\"");
-        var safeStatus = loc.Status.Replace("'", "\\'").Replace("\"", "\\\"");
-
-        var badgeClass = loc.Status switch
-        {
-            "Tersedia" => "badge-tersedia",
-            "Terpakai" => "badge-terpakai",
-            "Maintenance" => "badge-maintenance",
-            _ => "badge-tersedia"
-        };
+        var safeName = EscapeJs(loc.NamaStasiun);
+        var safeAlamat = EscapeJs(loc.Alamat);
+        var safeTipe = EscapeJs(loc.TipeCharger);
+        var safeStatus = EscapeJs(loc.Status);
 
         return $@"<!DOCTYPE html>
 <html lang=""id"">
@@ -290,7 +317,7 @@ public partial class MainWindow : Window
             color: #1e293b;
             border-radius: 10px;
             padding: 4px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
         }}
         .popup-title {{ font-weight: 700; font-size: 13px; color: #0f172a; margin-bottom: 4px; }}
         .popup-badge {{ display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; margin-bottom: 6px; }}
@@ -303,51 +330,56 @@ public partial class MainWindow : Window
 <body>
     <div id=""map""></div>
     <script>
-        try {{
-            var map = L.map('map', {{ zoomControl: true }}).setView([{latStr}, {lngStr}], 15);
-            var cartoVoyager = L.tileLayer('https://{{s}}.basemaps.cartocdn.com/rastertiles/voyager/{{z}}/{{x}}/{{y}}{{r}}.png', {{
+        var map;
+        var marker;
+
+        function initMap() {{
+            map = L.map('map', {{ zoomControl: true }}).setView([{latStr}, {lngStr}], 15);
+            L.tileLayer('https://tile.openstreetmap.de/{{z}}/{{x}}/{{y}}.png', {{
                 maxZoom: 19,
-                subdomains: 'abcd',
-                attribution: '&copy; <a href=""https://www.openstreetmap.org/copyright"">OpenStreetMap</a> contributors &copy; <a href=""https://carto.com/attributions"">CARTO</a>'
-            }});
+                attribution: '&copy; <a href=""https://www.openstreetmap.org/copyright"">OpenStreetMap</a> contributors'
+            }}).addTo(map);
 
-            var esriMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{{z}}/{{y}}/{{x}}', {{
-                maxZoom: 19,
-                attribution: 'Tiles &copy; Esri'
-            }});
+            updateLocation({latStr}, {lngStr}, '{safeName}', '{safeAlamat}', '{safeTipe}', '{safeStatus}');
+        }}
 
-            var cartoLight = L.tileLayer('https://{{s}}.basemaps.cartocdn.com/light_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
-                maxZoom: 19,
-                subdomains: 'abcd',
-                attribution: '&copy; <a href=""https://www.openstreetmap.org/copyright"">OpenStreetMap</a> contributors &copy; <a href=""https://carto.com/attributions"">CARTO</a>'
-            }});
+        function updateLocation(lat, lng, name, address, chargerType, status) {{
+            if (!map) return;
+            map.flyTo([lat, lng], 16, {{ animate: true, duration: 0.8 }});
+            if (marker) {{
+                map.removeLayer(marker);
+            }}
 
-            cartoVoyager.addTo(map);
-
-            var baseMaps = {{
-                ""Peta Standar (OSM)"": cartoVoyager,
-                ""Peta Terang"": cartoLight,
-                ""Peta Jalan (Esri)"": esriMap
-            }};
-            L.control.layers(baseMaps).addTo(map);
-
+            var badgeClass = status === 'Terpakai' ? 'badge-terpakai' : (status === 'Maintenance' ? 'badge-maintenance' : 'badge-tersedia');
             var popupContent = '<div class=""custom-popup"">' +
-                '<div class=""popup-title"">{safeName}</div>' +
-                '<span class=""popup-badge {badgeClass}"">{safeStatus}</span>' +
+                '<div class=""popup-title"">' + (name || 'SPKLU') + '</div>' +
+                '<span class=""popup-badge ' + badgeClass + '"">' + (status || 'Tersedia') + '</span>' +
                 '<div class=""popup-text"">' +
-                '<strong>Tipe:</strong> {safeTipe}<br/>' +
-                '<strong>Alamat:</strong> {safeAlamat}' +
+                '<strong>Tipe:</strong> ' + (chargerType || '-') + '<br/>' +
+                '<strong>Alamat:</strong> ' + (address || '-') +
                 '</div></div>';
 
-            L.marker([{latStr}, {lngStr}]).addTo(map)
-                .bindPopup(popupContent)
-                .openPopup();
-        }} catch(e) {{
-            document.body.innerHTML = '<div style=""color:white;padding:20px;font-family:sans-serif;"">Gagal memuat peta: ' + e.message + '</div>';
+            marker = L.marker([lat, lng]).addTo(map).bindPopup(popupContent).openPopup();
         }}
+
+        window.addEventListener('DOMContentLoaded', initMap);
     </script>
 </body>
 </html>";
+    }
+
+    public static string GenerateOsmEmbedUrl(SpkluLocation loc)
+    {
+        // Bounding box offset ~500m di sekitar titik koordinat SPKLU
+        const double delta = 0.005;
+        var minLng = (loc.Longitude - delta).ToString(CultureInfo.InvariantCulture);
+        var minLat = (loc.Latitude - delta).ToString(CultureInfo.InvariantCulture);
+        var maxLng = (loc.Longitude + delta).ToString(CultureInfo.InvariantCulture);
+        var maxLat = (loc.Latitude + delta).ToString(CultureInfo.InvariantCulture);
+        var markerLat = loc.Latitude.ToString(CultureInfo.InvariantCulture);
+        var markerLng = loc.Longitude.ToString(CultureInfo.InvariantCulture);
+
+        return $"https://www.openstreetmap.org/export/embed.html?bbox={minLng}%2C{minLat}%2C{maxLng}%2C{maxLat}&layer=mapnik&marker={markerLat}%2C{markerLng}";
     }
 
     private void BtnGoogleMaps_Click(object sender, RoutedEventArgs e)
