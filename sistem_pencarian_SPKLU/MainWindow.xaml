@@ -6,12 +6,12 @@
         xmlns:local="clr-namespace:sistem_pencarian_SPKLU"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="SPKLU Finder &amp; Interactive Map"
+        Title="SPKLU Finder"
         Height="850" Width="1280"
         MinHeight="720" MinWidth="1100"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource BgPageBrush}"
-        FontFamily="Segoe UI"
+        FontFamily="{StaticResource AppFont}"
         Loaded="Window_Loaded">
 
     <Grid>
@@ -36,27 +36,26 @@
 
                 <StackPanel Grid.Column="0">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Border Background="{StaticResource AccentGreenBrush}" CornerRadius="6" Width="28" Height="28" Margin="0,0,10,0">
-                            <TextBlock Text="⚡" FontSize="16" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{StaticResource AccentBlueBrush}" CornerRadius="6" Width="28" Height="15" Margin="0,0,10,0">
                         </Border>
-                        <TextBlock Text="SPKLU Finder &amp; Interactive Map" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="SPKLU Finder" FontSize="20" FontWeight="Bold" Foreground="{StaticResource HeaderTextBrush}"/>
                     </StackPanel>
-                    <TextBlock Text="Sistem Pencarian dan Navigasi Stasiun Pengisian Kendaraan Listrik Umum Terpadu" 
-                               FontSize="12" Foreground="#94A3B8" Margin="38,4,0,0"/>
+                    <TextBlock Text="Sistem Pencarian dan Navigasi Stasiun Pengisian Kendaraan Listrik Umum (SPKLU)" 
+                               FontSize="12" Foreground="{StaticResource HeaderSubTextBrush}" Margin="38,4,0,0"/>
                 </StackPanel>
 
                 <!-- Network Status Pill -->
-                <Border Grid.Column="1" Background="#1E293B" BorderBrush="#334155" BorderThickness="1" CornerRadius="20" Padding="12,6" VerticalAlignment="Center">
+                <Border Grid.Column="1" Background="{StaticResource CardBgBrush}" BorderBrush="{StaticResource AccentLightBrush}" BorderThickness="1" CornerRadius="20" Padding="12,6" VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <Ellipse Width="8" Height="8" Fill="{StaticResource AccentGreenBrush}" Margin="0,0,8,0"/>
-                        <TextBlock Text="Database SPKLU Aktif (In-Memory)" FontSize="12" Foreground="#E2E8F0" FontWeight="SemiBold"/>
+                        <Ellipse Width="8" Height="8" Fill="{StaticResource AccentGreenDarkBrush}" Margin="0,0,8,0"/>
+                        <TextBlock Text="Database Aktif (In-Memory)" FontSize="12" Foreground="{StaticResource TextDarkBrush}" FontWeight="SemiBold"/>
                     </StackPanel>
                 </Border>
             </Grid>
         </Border>
 
         <!-- 2. STATISTIC CARDS -->
-        <Grid Grid.Row="1" Margin="24,18,24,6">
+        <Grid Grid.Row="1" Margin="16,16,16,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -65,72 +64,71 @@
             </Grid.ColumnDefinitions>
 
             <!-- Card 1: Total SPKLU -->
-            <Border Grid.Column="0" Margin="0,0,10,0" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="16,14">
+            <Border Grid.Column="0" Margin="0,0,10,0" Background="{StaticResource CardBgBrush}" CornerRadius="6" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="0.5" Effect="{StaticResource CardShadow}" Padding="14,12  ">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock Text="TOTAL SPKLU" FontSize="11" FontWeight="Bold" Foreground="{StaticResource TextMutedBrush}"/>
-                        <TextBlock x:Name="txtTotalSpklu" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}" Margin="0,4,0,0"/>
-                        <TextBlock Text="Stasiun Terdaftar" FontSize="11" Foreground="{StaticResource TextMutedBrush}" Margin="0,2,0,0"/>
+                        <TextBlock Text="Total SPKLU" FontSize="14" FontWeight="Bold" Foreground="{StaticResource StatTextBrush}"/>
+                        <TextBlock x:Name="txtTotalSpklu" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource StatTextBrush}" Margin="0,4,0,0"/>
+                        <TextBlock Text="" FontSize="11" Foreground="{StaticResource StatTextBrush}" Margin="0,2,0,0"/>
                     </StackPanel>
-                    <Border Grid.Column="1" Background="#EFF6FF" CornerRadius="10" Width="42" Height="42" VerticalAlignment="Center">
+                    <Border Grid.Column="1" Background="{StaticResource HighlightLightBrush}" CornerRadius="10" Width="42" Height="42" VerticalAlignment="Center">
                         <TextBlock Text="🔌" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </Grid>
             </Border>
 
             <!-- Card 2: Tersedia -->
-            <Border Grid.Column="1" Margin="5,0,5,0" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="16,14">
+            <Border Grid.Column="1" Margin="5,0,5,0" Background="{StaticResource CardBgBrush}" CornerRadius="6" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="16,14">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock Text="STATUS TERSEDIA" FontSize="11" FontWeight="Bold" Foreground="{StaticResource AccentGreenDarkBrush}"/>
-                        <TextBlock x:Name="txtTotalTersedia" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource AccentGreenDarkBrush}" Margin="0,4,0,0"/>
-                        <TextBlock Text="Siap Digunakan" FontSize="11" Foreground="{StaticResource TextMutedBrush}" Margin="0,2,0,0"/>
+                        <TextBlock Text="SPKLU Tersedia" FontSize="14" FontWeight="Bold" Foreground="{StaticResource StatTextBrush}"/>
+                        <TextBlock x:Name="txtTotalTersedia" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource StatTextBrush}" Margin="0,4,0,0"/>
                     </StackPanel>
-                    <Border Grid.Column="1" Background="#ECFDF5" CornerRadius="10" Width="42" Height="42" VerticalAlignment="Center">
+                    <Border Grid.Column="1" Background="{StaticResource AccentLightBrush}" CornerRadius="10" Width="42" Height="42" VerticalAlignment="Center">
                         <TextBlock Text="✅" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </Grid>
             </Border>
 
             <!-- Card 3: DC Fast Charging -->
-            <Border Grid.Column="2" Margin="5,0,5,0" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="16,14">
+            <Border Grid.Column="2" Margin="5,0,5,0" Background="{StaticResource CardBgBrush}" CornerRadius="6" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="16,14">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock Text="DC FAST CHARGING" FontSize="11" FontWeight="Bold" Foreground="{StaticResource AccentBlueBrush}"/>
-                        <TextBlock x:Name="txtTotalFast" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource AccentBlueBrush}" Margin="0,4,0,0"/>
-                        <TextBlock Text="Daya 50 - 60 kW" FontSize="11" Foreground="{StaticResource TextMutedBrush}" Margin="0,2,0,0"/>
+                        <TextBlock Text="DC Fast Charger" FontSize="14" FontWeight="Bold" Foreground="{StaticResource StatTextBrush}"/>
+                        <TextBlock x:Name="txtTotalFast" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource StatTextBrush}" Margin="0,4,0,0"/>
+                        <TextBlock Text="Daya 50 - 60 kW" FontSize="11" Foreground="{StaticResource StatTextBrush}" Margin="0,2,0,0"/>
                     </StackPanel>
-                    <Border Grid.Column="1" Background="#EFF6FF" CornerRadius="10" Width="42" Height="42" VerticalAlignment="Center">
-                        <TextBlock Text="⚡" FontSize="18" Foreground="{StaticResource AccentBlueBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Border Grid.Column="1" Background="{StaticResource HighlightLightBrush}" CornerRadius="10" Width="42" Height="42" VerticalAlignment="Center">
+                        <TextBlock Text="⚡" FontSize="18" Foreground="{StaticResource StatTextBrush}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </Grid>
             </Border>
 
             <!-- Card 4: DC Ultra Fast Charging -->
-            <Border Grid.Column="3" Margin="10,0,0,0" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="16,14">
+            <Border Grid.Column="3" Margin="10,0,0,0" Background="{StaticResource CardBgBrush}" CornerRadius="6" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="16,14">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <TextBlock Text="ULTRA FAST CHARGING" FontSize="11" FontWeight="Bold" Foreground="#7C3AED"/>
-                        <TextBlock x:Name="txtTotalUltraFast" Text="0" FontSize="24" FontWeight="Bold" Foreground="#7C3AED" Margin="0,4,0,0"/>
-                        <TextBlock Text="Daya 150 - 200 kW" FontSize="11" Foreground="{StaticResource TextMutedBrush}" Margin="0,2,0,0"/>
+                        <TextBlock Text="Ultra Fast Charger" FontSize="14" FontWeight="Bold" Foreground="{StaticResource StatTextBrush}"/>
+                        <TextBlock x:Name="txtTotalUltraFast" Text="0" FontSize="24" FontWeight="Bold" Foreground="{StaticResource StatTextBrush}" Margin="0,4,0,0"/>
+                        <TextBlock Text="Daya 150 - 200 kW" FontSize="11" Foreground="{StaticResource StatTextBrush}" Margin="0,2,0,0"/>
                     </StackPanel>
-                    <Border Grid.Column="1" Background="#F5F3FF" CornerRadius="10" Width="42" Height="42" VerticalAlignment="Center">
+                    <Border Grid.Column="1" Background="{StaticResource AccentLightBrush}" CornerRadius="10" Width="42" Height="42" VerticalAlignment="Center">
                         <TextBlock Text="🚀" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </Grid>
@@ -138,10 +136,10 @@
         </Grid>
 
         <!-- 3. MAIN WORKSPACE (LEFT PANEL: List/Filter | RIGHT PANEL: Map & Detail) -->
-        <Grid Grid.Row="2" Margin="24,14,24,16">
+        <Grid Grid.Row="2" Margin="24,8,24,16">
             <Grid.ColumnDefinitions>
                 <!-- Left Panel -->
-                <ColumnDefinition Width="1.15*"/>
+                <ColumnDefinition Width="1.1*"/>
                 <!-- Divider -->
                 <ColumnDefinition Width="16"/>
                 <!-- Right Panel -->
@@ -149,7 +147,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- ================= LEFT PANEL ================= -->
-            <Border Grid.Column="0" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="16">
+            <Border Grid.Column="0" Background="{StaticResource CardBgBrush}" CornerRadius="6" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="16">
                 <Grid>
                     <Grid.RowDefinitions>
                         <!-- Filter & Search Controls -->
@@ -163,16 +161,16 @@
                     <!-- Filter Controls Section -->
                     <StackPanel Grid.Row="0" Margin="0,0,0,12">
                         <!-- Search Box -->
-                        <TextBlock Text="Pencarian SPKLU" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
+                        <TextBlock Text="Cari SPKLU" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,4"/>
                         <Grid Margin="0,0,0,10">
                             <TextBox x:Name="txtSearch" 
                                      Style="{StaticResource ModernTextBoxStyle}" 
                                      Padding="32,8,10,8" 
                                      TextChanged="TxtSearch_TextChanged"/>
-                            <TextBlock Text="🔍" FontSize="13" Foreground="#94A3B8" 
+                            <TextBlock Text="🔍" FontSize="13" Foreground="{StaticResource TextMutedBrush}" 
                                        HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" IsHitTestVisible="False"/>
                             <TextBlock x:Name="txtSearchPlaceholder" Text="Ketik nama stasiun, kota, atau alamat..." 
-                                       FontSize="13" Foreground="#94A3B8" 
+                                       FontSize="13" Foreground="{StaticResource TextMutedBrush}" 
                                        HorizontalAlignment="Left" VerticalAlignment="Center" Margin="34,0,0,0" 
                                        IsHitTestVisible="False"/>
                         </Grid>
@@ -216,10 +214,10 @@
                     </StackPanel>
 
                     <!-- Record Count Header -->
-                    <Border Grid.Row="1" Background="#F8FAFC" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="0,1,0,1" Padding="8,6" Margin="0,0,0,8">
+                    <Border Grid.Row="1" Background="{StaticResource CardBgDarkBrush}" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="0,1,0,1" Padding="8,6" Margin="0,0,0,8">
                         <Grid>
                             <TextBlock x:Name="txtRecordCount" Text="Menampilkan 0 SPKLU" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextDarkBrush}"/>
-                            <TextBlock Text="* Klik baris untuk melihat detail &amp; peta" FontSize="11" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Right"/>
+                            <TextBlock Text="Klik untuk melihat detail &amp; peta" FontSize="10" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Right"/>
                         </Grid>
                     </Border>
 
@@ -234,8 +232,9 @@
                               SelectionUnit="FullRow"
                               HeadersVisibility="Column"
                               GridLinesVisibility="Horizontal"
-                              HorizontalGridLinesBrush="#F1F5F9"
-                              Background="White"
+                              HorizontalGridLinesBrush="{StaticResource BorderLightBrush}"
+                              RowBackground="{StaticResource CardBgBrush}"
+                              Background="{StaticResource CardBgBrush}"
                               RowHeight="44"
                               BorderThickness="1"
                               BorderBrush="{StaticResource BorderLightBrush}"
@@ -244,12 +243,12 @@
                         <DataGrid.Resources>
                             <!-- Header Style -->
                             <Style TargetType="DataGridColumnHeader">
-                                <Setter Property="Background" Value="#F1F5F9" />
-                                <Setter Property="Foreground" Value="#475569" />
+                                <Setter Property="Background" Value="{StaticResource AccentLightBrush}" />
+                                <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}" />
                                 <Setter Property="FontWeight" Value="SemiBold" />
                                 <Setter Property="FontSize" Value="12" />
                                 <Setter Property="Padding" Value="10,8" />
-                                <Setter Property="BorderBrush" Value="#E2E8F0" />
+                                <Setter Property="BorderBrush" Value="{StaticResource BorderLightBrush}" />
                                 <Setter Property="BorderThickness" Value="0,0,1,1" />
                             </Style>
 
@@ -258,11 +257,11 @@
                                 <Setter Property="SnapsToDevicePixels" Value="true"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="#EFF6FF"/>
-                                        <Setter Property="BorderBrush" Value="#BFDBFE"/>
+                                        <Setter Property="Background" Value="{StaticResource HighlightLightBrush}"/>
+                                        <Setter Property="BorderBrush" Value="{StaticResource AccentBlueBrush}"/>
                                     </Trigger>
                                     <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#F8FAFC"/>
+                                        <Setter Property="Background" Value="{StaticResource CardBgDarkBrush}"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -288,7 +287,7 @@
 
                         <DataGrid.Columns>
                             <!-- Nama SPKLU & Kota -->
-                            <DataGridTemplateColumn Header="Nama SPKLU / Kota" Width="2*">
+                            <DataGridTemplateColumn Header="Nama SPKLU" Width="2*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel VerticalAlignment="Center">
@@ -312,7 +311,7 @@
                             <DataGridTemplateColumn Header="Daya" Width="0.7*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding DayaDisplay}" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AccentBlueBrush}" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding DayaDisplay}" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AccentBlueDarkBrush}" VerticalAlignment="Center"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -353,7 +352,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- 1. MAP VIEW CONTAINER -->
-                <Border Grid.Row="0" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="14">
+                <Border Grid.Row="0" Background="{StaticResource CardBgBrush}" CornerRadius="6" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="14">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -364,24 +363,24 @@
                         <Grid Grid.Row="0" Margin="0,0,0,10">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                 <TextBlock Text="📍" FontSize="14" Margin="0,0,6,0"/>
-                                <TextBlock Text="Peta Interaktif (OpenStreetMap &amp; Leaflet)" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}"/>
+                                <TextBlock Text="Peta Lokasi (OpenStreetMap &amp; Leaflet)" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}"/>
                             </StackPanel>
                             <TextBlock x:Name="txtMapCoordBadge" Text="-7.2654, 112.7482" 
-                                       FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource AccentBlueBrush}" 
+                                       FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource AccentBlueDarkBrush}" 
                                        HorizontalAlignment="Right" VerticalAlignment="Center"/>
                         </Grid>
 
                         <!-- WebView2 Control Area -->
-                        <Border Grid.Row="1" CornerRadius="8" ClipToBounds="True" Background="#0F172A" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1">
+                        <Border Grid.Row="1" CornerRadius="8" ClipToBounds="True" Background="{StaticResource AccentLightBrush}" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1">
                             <Grid>
                                 <wv2:WebView2 x:Name="MapWebView" />
                                 
                                 <!-- Loading / Fallback Indicator -->
-                                <Border x:Name="bdrMapFallback" Background="#1E293B" Visibility="Collapsed" Padding="20">
+                                <Border x:Name="bdrMapFallback" Background="{StaticResource AccentLightBrush}" Visibility="Collapsed" Padding="20">
                                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                                         <TextBlock Text="🗺️" FontSize="32" HorizontalAlignment="Center" Margin="0,0,0,8"/>
-                                        <TextBlock x:Name="txtMapFallback" Text="Memuat Peta Interaktif SPKLU..." 
-                                                   FontSize="13" Foreground="#E2E8F0" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
+                                        <TextBlock x:Name="txtMapFallback" Text="Memuat Peta Lokasi SPKLU..." 
+                                                   FontSize="13" Foreground="{StaticResource TextDarkBrush}" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
                                     </StackPanel>
                                 </Border>
                             </Grid>
@@ -390,7 +389,7 @@
                 </Border>
 
                 <!-- 2. DETAIL PANEL CONTAINER -->
-                <Border Grid.Row="2" Background="White" CornerRadius="12" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="18">
+                <Border Grid.Row="2" Background="{StaticResource CardBgBrush}" CornerRadius="12" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="1" Effect="{StaticResource CardShadow}" Padding="18">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -401,8 +400,7 @@
                         <!-- Detail Header -->
                         <Grid Grid.Row="0" Margin="0,0,0,10">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <TextBlock Text="📋" FontSize="14" Margin="0,0,6,0"/>
-                                <TextBlock Text="Panel Detail SPKLU" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}"/>
+                                <TextBlock Text="Detail SPKLU" FontSize="13" FontWeight="Bold" Foreground="{StaticResource TextDarkBrush}"/>
                             </StackPanel>
                             <!-- Selected Status Badge -->
                             <Border x:Name="bdrDetailStatus" Background="#D1FAE5" CornerRadius="12" Padding="10,3" HorizontalAlignment="Right" VerticalAlignment="Center">
@@ -449,7 +447,7 @@
                                     <!-- Row 1: Daya & Port -->
                                     <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,6,10">
                                         <TextBlock Text="Kapasitas Daya Max" FontSize="11" Foreground="{StaticResource TextMutedBrush}"/>
-                                        <TextBlock x:Name="txtDetailDaya" Text="50 kW" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource AccentBlueBrush}" Margin="0,2,0,0"/>
+                                        <TextBlock x:Name="txtDetailDaya" Text="50 kW" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource AccentBlueDarkBrush}" Margin="0,2,0,0"/>
                                     </StackPanel>
 
                                     <StackPanel Grid.Row="1" Grid.Column="1" Margin="6,0,0,10">
@@ -480,10 +478,10 @@
                             </Grid.ColumnDefinitions>
 
                             <Button x:Name="btnGoogleMaps" Grid.Column="0" Style="{StaticResource NavButtonStyle}" 
-                                    Content="🧭 Buka di Google Maps" Height="40" Click="BtnGoogleMaps_Click"/>
+                                    Content="Buka di Google Maps" Height="40" Click="BtnGoogleMaps_Click"/>
 
                             <Button x:Name="btnCopyCoords" Grid.Column="2" Style="{StaticResource OutlineButtonStyle}" 
-                                    Content="📋 Salin Koordinat" Height="40" Click="BtnCopyCoords_Click"/>
+                                    Content="Salin Koordinat" Height="40" Click="BtnCopyCoords_Click"/>
                         </Grid>
                     </Grid>
                 </Border>
@@ -491,7 +489,7 @@
         </Grid>
 
         <!-- 4. FOOTER / STATUS BAR -->
-        <Border Grid.Row="3" Background="White" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="0,1,0,0" Padding="24,8">
+        <Border Grid.Row="3" Background="{StaticResource CardBgBrush}" BorderBrush="{StaticResource BorderLightBrush}" BorderThickness="0,1,0,0" Padding="24,8">
             <Grid>
                 <TextBlock Text="Sistem Pencarian SPKLU &amp; Maps © 2026 - PBKK Week 8" FontSize="11" Foreground="{StaticResource TextMutedBrush}"/>
                 <TextBlock Text="Didukung oleh OpenStreetMap &amp; Leaflet.js" FontSize="11" Foreground="{StaticResource TextMutedBrush}" HorizontalAlignment="Right"/>
