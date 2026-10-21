@@ -4,39 +4,56 @@
              xmlns:local="clr-namespace:sistem_pencarian_SPKLU"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!-- Color Palette -->
-        <Color x:Key="PrimaryDarkColor">#0F172A</Color>
-        <Color x:Key="SecondaryDarkColor">#1E293B</Color>
-        <Color x:Key="AccentGreenColor">#10B981</Color>
-        <Color x:Key="AccentGreenDarkColor">#059669</Color>
-        <Color x:Key="AccentBlueColor">#2563EB</Color>
-        <Color x:Key="AccentBlueDarkColor">#1D4ED8</Color>
-        <Color x:Key="BgPageColor">#F8FAFC</Color>
-        <Color x:Key="CardBgColor">#FFFFFF</Color>
-        <Color x:Key="BorderLightColor">#E2E8F0</Color>
-        <Color x:Key="TextDarkColor">#0F172A</Color>
-        <Color x:Key="TextMutedColor">#64748B</Color>
+        <!-- Font Aplikasi (file .ttf ada di folder Fonts) -->
+        <FontFamily x:Key="AppFont">pack://application:,,,/Fonts/#Poppins</FontFamily>
+
+        <!-- Palet Warna: Navy #27374D, Slate #526D82, Biru abu #9DB2BF, Biru muda #DDE6ED -->
+        <Color x:Key="PrimaryDarkColor">#27374D</Color>     <!-- Navy: header -->
+        <Color x:Key="SecondaryDarkColor">#526D82</Color>   <!-- Slate -->
+        <Color x:Key="AccentLightColor">#DDE6ED</Color>     <!-- Biru muda: kotak ikon, judul tabel -->
+        <Color x:Key="AccentDeepColor">#27374D</Color>      <!-- Navy: teks penekanan -->
+        <Color x:Key="AccentGreenColor">#9DB2BF</Color>     <!-- Biru abu -->
+        <Color x:Key="AccentGreenDarkColor">#526D82</Color> <!-- Slate: tombol utama & teks -->
+        <Color x:Key="AccentBlueColor">#9DB2BF</Color>      <!-- Biru abu: logo, tombol & aksen -->
+        <Color x:Key="AccentBlueDarkColor">#3E5670</Color>  <!-- Slate gelap: hover & teks angka -->
+        <Color x:Key="HighlightLightColor">#DDE6ED</Color>  <!-- Biru muda: baris terpilih -->
+        <Color x:Key="BgPageColor">#FFFFFF</Color>          <!-- Putih: latar halaman -->
+        <Color x:Key="StatTextColor">#000000</Color>        <!-- Hitam: teks kotak statistik -->
+        <Color x:Key="CardBgColor">#F4F7FA</Color>          <!-- Putih kebiruan: kartu -->
+        <Color x:Key="CardBgDarkColor">#E9EFF4</Color>      <!-- Kartu sedikit gelap -->
+        <Color x:Key="BorderLightColor">#CFDAE3</Color>
+        <Color x:Key="TextDarkColor">#1E2A3A</Color>
+        <Color x:Key="TextMutedColor">#5B6B7B</Color>
+        <Color x:Key="HeaderTextColor">#FFFFFF</Color>      <!-- Teks judul di header -->
+        <Color x:Key="HeaderSubTextColor">#9DB2BF</Color>   <!-- Teks subjudul di header -->
 
         <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}" />
+        <SolidColorBrush x:Key="AccentLightBrush" Color="{StaticResource AccentLightColor}" />
+        <SolidColorBrush x:Key="AccentDeepBrush" Color="{StaticResource AccentDeepColor}" />
+        <SolidColorBrush x:Key="HighlightLightBrush" Color="{StaticResource HighlightLightColor}" />
+        <SolidColorBrush x:Key="CardBgDarkBrush" Color="{StaticResource CardBgDarkColor}" />
+        <SolidColorBrush x:Key="HeaderTextBrush" Color="{StaticResource HeaderTextColor}" />
+        <SolidColorBrush x:Key="HeaderSubTextBrush" Color="{StaticResource HeaderSubTextColor}" />
         <SolidColorBrush x:Key="SecondaryDarkBrush" Color="{StaticResource SecondaryDarkColor}" />
         <SolidColorBrush x:Key="AccentGreenBrush" Color="{StaticResource AccentGreenColor}" />
         <SolidColorBrush x:Key="AccentGreenDarkBrush" Color="{StaticResource AccentGreenDarkColor}" />
         <SolidColorBrush x:Key="AccentBlueBrush" Color="{StaticResource AccentBlueColor}" />
         <SolidColorBrush x:Key="AccentBlueDarkBrush" Color="{StaticResource AccentBlueDarkColor}" />
         <SolidColorBrush x:Key="BgPageBrush" Color="{StaticResource BgPageColor}" />
+        <SolidColorBrush x:Key="StatTextBrush" Color="{StaticResource StatTextColor}" />
         <SolidColorBrush x:Key="CardBgBrush" Color="{StaticResource CardBgColor}" />
         <SolidColorBrush x:Key="BorderLightBrush" Color="{StaticResource BorderLightColor}" />
         <SolidColorBrush x:Key="TextDarkBrush" Color="{StaticResource TextDarkColor}" />
         <SolidColorBrush x:Key="TextMutedBrush" Color="{StaticResource TextMutedColor}" />
 
         <!-- Card Shadow Effect -->
-        <DropShadowEffect x:Key="CardShadow" BlurRadius="12" Direction="270" ShadowDepth="2" Opacity="0.06" Color="#0F172A" />
-        <DropShadowEffect x:Key="HeaderShadow" BlurRadius="16" Direction="270" ShadowDepth="3" Opacity="0.12" Color="#000000" />
+        <DropShadowEffect x:Key="CardShadow" BlurRadius="12" Direction="270" ShadowDepth="2" Opacity="0.08" Color="#1E2A3A" />
+        <DropShadowEffect x:Key="HeaderShadow" BlurRadius="16" Direction="270" ShadowDepth="3" Opacity="0.12" Color="#1E2A3A" />
 
         <!-- Modern Button Style -->
         <Style x:Key="ModernButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="{StaticResource AccentBlueBrush}" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}" />
             <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="FontSize" Value="13" />
             <Setter Property="Padding" Value="14,8" />
@@ -68,7 +85,8 @@
 
         <!-- Navigation / Map Button Style -->
         <Style x:Key="NavButtonStyle" TargetType="Button" BasedOn="{StaticResource ModernButtonStyle}">
-            <Setter Property="Background" Value="{StaticResource AccentGreenBrush}" />
+            <Setter Property="Background" Value="{StaticResource AccentGreenDarkBrush}" />
+            <Setter Property="Foreground" Value="White" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -81,7 +99,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="{StaticResource AccentGreenDarkBrush}" />
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource AccentDeepBrush}" />
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="border" Property="Opacity" Value="0.5" />
@@ -112,7 +130,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#F1F5F9" />
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource HighlightLightBrush}" />
                                 <Setter Property="Foreground" Value="{StaticResource TextDarkBrush}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
@@ -147,7 +165,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsFocused" Value="True">
-                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource AccentBlueBrush}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource AccentGreenDarkBrush}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
