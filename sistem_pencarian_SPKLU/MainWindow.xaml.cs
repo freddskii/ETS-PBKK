@@ -309,22 +309,23 @@ public partial class MainWindow : Window
     <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
     <link rel=""stylesheet"" href=""https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"" />
     <script src=""https://unpkg.com/leaflet@1.9.4/dist/leaflet.js""></script>
+    <link rel=""stylesheet"" href=""https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"" />
     <style>
-        html, body {{ height: 100%; width: 100%; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #0f172a; }}
+        html, body, .leaflet-container {{ height: 100%; width: 100%; margin: 0; padding: 0; font-family: 'Poppins', 'Segoe UI', sans-serif; background-color: #dde6ed; }}
         #map {{ height: 100%; width: 100%; }}
         .custom-popup .leaflet-popup-content-wrapper {{
-            background: #ffffff;
-            color: #1e293b;
+            background: #f4f7fa;
+            color: #1e2a3a;
             border-radius: 10px;
             padding: 4px;
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15);
         }}
-        .popup-title {{ font-weight: 700; font-size: 13px; color: #0f172a; margin-bottom: 4px; }}
+        .popup-title {{ font-weight: 700; font-size: 13px; color: #27374d; margin-bottom: 4px; }}
         .popup-badge {{ display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 9999px; margin-bottom: 6px; }}
         .badge-tersedia {{ background-color: #d1fae5; color: #065f46; }}
         .badge-terpakai {{ background-color: #fef3c7; color: #92400e; }}
         .badge-maintenance {{ background-color: #fee2e2; color: #991b1b; }}
-        .popup-text {{ font-size: 11px; color: #475569; line-height: 1.4; }}
+        .popup-text {{ font-size: 11px; color: #5b6b7b; line-height: 1.4; }}
     </style>
 </head>
 <body>
