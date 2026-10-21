@@ -16,22 +16,29 @@ public class SpkluLocation
 
     // Helper properties for easy data binding
     public string DayaDisplay => $"{DayaMaxKW} kW";
-    public string PortDisplay => $"{JumlahPort} Port";
+    public string PortDisplay => $"{JumlahPort} port";
     public string KoordinatDisplay => $"{Latitude:F4}, {Longitude:F4}";
+
+    // Label status yang ditampilkan di UI
+    public string StatusLabel => Status switch
+    {
+        "Maintenance" => "Dalam perbaikan",
+        _ => Status
+    };
 
     public string StatusBgColor => Status switch
     {
-        "Tersedia" => "#D1FAE5",      // Emerald light
-        "Terpakai" => "#FEF3C7",      // Amber light
-        "Maintenance" => "#FEE2E2",   // Red light
-        _ => "#F1F5F9"
+        "Tersedia" => "#D1FAE5",      // Hijau muda
+        "Terpakai" => "#FEF3C7",      // Kuning muda
+        "Maintenance" => "#FEE2E2",   // Merah muda
+        _ => "#E9EFF4"
     };
 
     public string StatusTextColor => Status switch
     {
-        "Tersedia" => "#065F46",      // Emerald dark
-        "Terpakai" => "#92400E",      // Amber dark
-        "Maintenance" => "#991B1B",   // Red dark
-        _ => "#334155"
+        "Tersedia" => "#065F46",      // Hijau tua
+        "Terpakai" => "#92400E",      // Kuning tua
+        "Maintenance" => "#991B1B",   // Merah tua
+        _ => "#1E2A3A"
     };
 }
